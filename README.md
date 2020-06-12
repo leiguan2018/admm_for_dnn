@@ -1,5 +1,4 @@
 # pdlADMM: An ADMM-Based Framework for Parallel Deep Learning Training with Efficiency
-aaa
 
 This repository provides the code of pdlADMM which is designed based on the ADMM framework and can effectively solve the task of fully-connected neural network problem in a data-parallel manner.
 
