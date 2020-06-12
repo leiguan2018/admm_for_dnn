@@ -3,7 +3,7 @@
 This repository provides the code of pdlADMM which is designed based on the ADMM framework and can effectively solve the task of fully-connected neural network problem in a data-parallel manner.
 
 The code corresponds to our paper:
-Lei Guan, Zhihui Yang, Dongsheng Li, and Xicheng Lu. ADMM for Efficient Deep Learning with Global ConvergencepdlADMM: An ADMM-Based Framework for Parallel Deep Learning Training with Efficiency.
+Lei Guan, Zhihui Yang, Dongsheng Li, and Xicheng Lu. pdlADMM: An ADMM-Based Framework for Parallel Deep Learning Training with Efficiency.
 
 
 ### Datasets included in this package
