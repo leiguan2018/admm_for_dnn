@@ -8,8 +8,7 @@ import os
 import socket
 
 from util import para_func
-from util.input_data import mnist, fashion_mnist, cifar10, svhn, cifar100, emnist
-from util.utility import save_results_to_disk
+from util.input_data import mnist, fashion_mnist, cifar10, emnist
 
 
 num_classes = 10
@@ -115,20 +114,12 @@ def main():
         data = cifar10()
         num_classes = 10
         input_size = 3 * 32 * 32
-    elif dataset == "svhn":
-        data = svhn()
-        num_classes = 10
-        input_size = 3 * 32 * 32
-    elif dataset == "cifar100":
-        data = cifar100()
-        num_classes = 100
-        input_size = 3 * 32 * 32
     elif dataset == "emnist":
         data = emnist()
         num_classes = 47
         input_size = 28*28
 
-    print("PDADMM. dataset={}, rho={}, gamma={}".format(dataset, rho, gamma))
+    print("pdlADMM. dataset={}, rho={}, gamma={}".format(dataset, rho, gamma))
 
     with np.cuda.Device(rank):
         x_train = data.train.xs
@@ -161,11 +152,6 @@ def main():
                 (test_acc[i], test_cost[i]) = test_accuracy(W1, W2, W3, x_test, y_test)
                 print("epoch=", i+1, "running time:", running_time[i],
                       "test acc:", test_acc[i], "test_loss:", test_cost[i])
-
-    if rank == 0:
-        filename = 'pdlADMM'+str(size) + '_' + 'DNN3' + '_' + dataset + \
-                   '_rho' + str(rho) + '_gamma' + str(gamma)
-        save_results_to_disk(filename, running_time, test_cost, test_acc)
 
 
 def init_processes(rank, size, hostname, fn, backend='tcp'):

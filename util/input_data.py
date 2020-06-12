@@ -90,58 +90,6 @@ class cifar10():
 		self.train = DataSubset(self.x_train, self.y_train)
 		self.test = DataSubset(self.x_test, self.y_test)
 
-
-class cifar100():
-	def __init__(self):
-		self.cifar100 = tf.keras.datasets.cifar100
-		(self.x_train, self.y_train), (self.x_test, self.y_test) = self.cifar100.load_data()
-		# print("origin shape", self.x_train.shape, self.y_train.shape, self.x_test.shape, self.y_test.shape)
-
-		# Uncomment to normalize to (0, 1)
-		self.x_train, self.x_test = self.x_train / 255.0, self.x_test / 255.0
-
-
-		self.x_train = self.x_train.reshape(50000, 32 * 32 * 3)
-		self.y_train = to_categorical(self.y_train, num_classes=100).reshape(50000, 100)
-
-		self.x_test = self.x_test.reshape(10000, 32 * 32 * 3)
-		self.y_test = to_categorical(self.y_test, num_classes=100).reshape(10000, 100)
-
-		self.train = DataSubset(self.x_train, self.y_train)
-		self.test = DataSubset(self.x_test, self.y_test)
-
-
-class svhn():
-	def __init__(self):
-		self.train_data = loadmat('/home/lei/project/admm_dnn/admm_dnn_code/data/train_32x32.mat')
-		self.test_data = loadmat('/home/lei/project/admm_dnn/admm_dnn_code/data/test_32x32.mat')
-
-		self.x_train, self.y_train = self.train_data['X'], self.train_data['y']
-		self.x_test, self.y_test = self.test_data['X'], self.test_data['y']
-
-		# print("shape0", self.x_train.shape, self.y_train.shape)
-
-		self.x_train = numpy.rollaxis(self.x_train, 3)
-		self.x_test = numpy.rollaxis(self.x_test, 3)
-
-		self.x_train, self.x_test = self.x_train / 255.0, self.x_test / 255.0
-
-		# print("shape1", self.x_train.shape, self.y_train.shape)
-
-		self.y_train = self.y_train[:, 0]
-		self.y_test = self.y_test[:, 0]
-		self.y_train[self.y_train == 10] = 0
-		self.y_test[self.y_test == 10] = 0
-
-		self.x_train = self.x_train.reshape(73257, 32 * 32 * 3)
-		self.y_train = to_categorical(self.y_train, num_classes=10).reshape(73257, 10)
-
-		self.x_test = self.x_test.reshape(26032, 32 * 32 * 3)
-		self.y_test = to_categorical(self.y_test, num_classes=10).reshape(26032, 10)
-
-		self.train = DataSubset(self.x_train, self.y_train)
-		self.test = DataSubset(self.x_test, self.y_test)
-
 _logger = logging.getLogger(__name__)
 class emnist():
 	def __init__(self):
@@ -174,7 +122,6 @@ class emnist():
 		y_train = to_categorical(y_train, num_classes=47).reshape(112800, 47)
 		x_test = x_test.reshape(18800, 28 * 28)
 		y_test = to_categorical(y_test, num_classes=47).reshape(18800, 47)
-
 
 		self.train = DataSubset(x_train, y_train)
 		self.test = DataSubset(x_test, y_test)
